@@ -89,23 +89,23 @@ ServerTokens Prod
 ~~~
 #!/bin/bash
 ~~~
-# Muestra todos los comandos que se van ejecutando 
+#### Muestra todos los comandos que se van ejecutando 
 ~~~
 set -x
 ~~~
-# Actualizamos los repositorios 
+#### Actualizamos los repositorios 
 ~~~
 apt update 
 ~~~
-# Actualizamos los paquetes 
+#### Actualizamos los paquetes 
 ~~~
 apt upgrade -y
 ~~~
-# Importamos el archivo de variables .env
+#### Importamos el archivo de variables .env
 ~~~
 source .env
 ~~~
-# Creamos un certificado y una clave privada 
+#### Creamos un certificado y una clave privada 
 ~~~
 openssl req \
   -x509 \
@@ -116,33 +116,34 @@ openssl req \
   -out /etc/ssl/certs/apache-selfsigned.crt \
   -subj "/C=$OPENSSL_COUNTRY/ST=$OPENSSL_PROVINCE/L=$OPENSSL_LOCALITY/O=$OPENSSL_ORGANIZATION/OU=$OPENSSL_ORGUNIT/CN=$OPENSSL_COMMON_NAME/emailAddress=$OPENSSL_EMAIL"
 ~~~
-### Copiamos el archivo de configuración de apache para https 
+#### Copiamos el archivo de configuración de apache para https 
 ~~~
 cp ../conf/default-ssl.conf /etc/apache2/sites-available/
 ~~~
-### Habilitamos el VirtualHost para HTTPS 
+#### Habilitamos el VirtualHost para HTTPS 
 ~~~
 a2ensite default-ssl.conf
 ~~~
-### Habilitamos el modulo SSL
+#### Habilitamos el modulo SSL
 ~~~
 a2enmod ssl
 ~~~
-### Configuramos que las peticiones a HTTP se redirijan a HTTPS para ello copiamos el archivo *000-default.conf* en /etc/sites-available.
+#### Configuramos que las peticiones a HTTP se redirijan a HTTPS para ello copiamos el archivo *000-default.conf* en /etc/sites-available.
 ~~~
 cp ../conf/000-default.conf /etc/apache2/sites-available
 ~~~
-### Sustituimos el nombre del dominio, lo hacemos buscando con el comando sed -i EL PUT_YOUR_DOMAIN_HERE que tenemos escrito en el archivo de configuración ssl.
+#### Sustituimos el nombre del dominio, lo hacemos buscando con el comando sed -i EL PUT_YOUR_DOMAIN_HERE que tenemos escrito en el archivo de configuración ssl.
 ~~~
 sed -i "s/PUT_YOUR_DOMAIN_HERE/$OPENSSL_COMMON_NAME/g" /etc/apache2/sites-available/default-ssl.conf
 ~~~
-### Y Habilitamos el módulo 
+#### Y Habilitamos el módulo 
 ~~~
 a2enmod rewrite
 ~~~
-### Para finalizar reiniciamos el servicio de Apache
+#### Para finalizar reiniciamos el servicio de Apache
 ~~~
 systemctl restart apache2
 ~~~
 ### Ahora una vez que entremos a la ip de nuestra máquina antes de acceder a la página web nos va a salir una advertencia de que no es un sitio seguro que si queremos seguir igualmente, sería algo así:
-
+![Cap 1 p4](https://github.com/JoseFco04/Practica-01-04-IAW/assets/145347148/a659aa58-8a02-4fba-b029-92c5787d5be3)
+### Le pinchariamos en ir igualmente y nos dejaria entrar perfectamente en nuestra página web.
