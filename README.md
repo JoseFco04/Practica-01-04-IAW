@@ -1,6 +1,6 @@
 # Practica-01-04-IAW
 
-## En esta práctica vammos a usar la misma máquina ubuntu que usamos en la practica 03 pero vamos a conifgurarle un certificado SSL autofirmado en apache 
+## En esta práctica vamos a usar la misma máquina ubuntu que usamos en la practica 03 pero vamos a conifgurarle un certificado SSL autofirmado en apache 
 ### El script de *install_lamp* se haría así pero no cambia nada con respecto a la práctica anterior
 ~~~
 ###!/bin/bash
